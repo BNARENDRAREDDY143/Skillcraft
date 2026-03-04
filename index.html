@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Hub · index</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f0f4fa 0%, #dae5f0 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .hub-container {
+      max-width: 1300px;
+      width: 100%;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 4rem 1.5rem 4rem 1.5rem;
+      box-shadow: 0 30px 60px -20px #1e3c7290,
+                  inset 0 1px 2px rgba(255,255,255,0.8);
+      padding: 3rem 2.5rem;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    /* header section */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      border-bottom: 3px dashed #9bb8d4;
+      padding-bottom: 1.8rem;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #1e3c72, #2a5298, #3498db);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .badge {
+      background: #1e3c72;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 1.2rem;
+      box-shadow: 0 6px 14px #1e3c7250;
+      border: 1px solid #ffffff90;
+    }
+
+    /* project grid — exactly 4 cards */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.8rem;
+      margin: 2.5rem 0 3.5rem;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 2.5rem 1rem 2.5rem 1rem;
+      padding: 2rem 1.3rem 1.8rem;
+      text-decoration: none;
+      color: #1d2f44;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+      border: 2px solid rgba(255,255,255,0.9);
+      box-shadow: 0 20px 30px -12px #1e3c7260;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      background: white;
+      border-color: #9ac7ff;
+      box-shadow: 0 30px 40px -12px #0f2b4b;
+    }
+
+    .card-icon {
+      font-size: 4.2rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(3px 8px 8px rgba(20, 60, 120, 0.25));
+    }
+
+    .project-title {
+      font-size: 2rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 1rem;
+      color: #2f4858;
+      margin: 0.6rem 0 0.8rem;
+      line-height: 1.5;
+      padding: 0 0.2rem;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .tech-tag {
+      background: #d9eafb;
+      padding: 0.3rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1d3f60;
+      letter-spacing: 0.3px;
+      border: 1px solid #ffffff;
+    }
+
+    /* live demo / visit link */
+    .card-footer {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2a5f8a;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #ecf5fc;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+
+    .project-card:hover .card-footer {
+      background: #1e3c72;
+      color: white;
+    }
+
+    /* extra info & footer */
+    .feature-note {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffffb0;
+      border-radius: 3rem 0.8rem 3rem 0.8rem;
+      padding: 1.3rem 2.2rem;
+      margin-top: 1.5rem;
+      border: 1px solid white;
+    }
+
+    .stack-overview {
+      display: flex;
+      gap: 2rem;
+      color: #1f4462;
+      font-weight: 500;
+    }
+
+    .stack-overview span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .launch-message {
+      font-size: 1.1rem;
+      background: #1e3c72;
+      color: white;
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+    }
+
+    /* responsive */
+    @media (max-width: 1000px) {
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .header h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+      .hub-container {
+        padding: 2rem 1.2rem;
+      }
+      .header {
+        flex-direction: column;
+        align-items: start;
+        gap: 1rem;
+      }
+      .badge {
+        font-size: 1rem;
+      }
+      .feature-note {
+        flex-direction: column;
+        align-items: start;
+        gap: 1rem;
+      }
+    }
+
+    .separator {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #8bb9e0, transparent);
+      margin: 2rem 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="hub-container">
+    <!-- index page header (clear indication that this is the home page) -->
+    <div class="header">
+      <h1>
+        <span>🧩</span> project hub
+      </h1>
+    </div>
+
+   
+
+    <!-- GRID OF EXACTLY 4 PROJECT CARDS (matching your 4 pages) -->
+    <div class="project-grid">
+      
+      <!-- 1. Calculator card -->
+      <a href="Calculator.html" class="project-card" onclick="return openProject('calculator');" id="calc-link">
+        <span class="card-icon">🧮</span>
+        <span class="project-title">Calculator</span>
+        <p class="project-desc">sleek, full-featured calculator with keyboard support, % operator, and error handling.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">html5</span>
+          <span class="tech-tag">css</span>
+        </div>
+        <span class="card-footer">open calculator →</span>
+      </a>
+
+      <!-- 2. Quiz Game card (SkillCraft) -->
+      <a href="Quiz.html" class="project-card" >
+        <span class="card-icon">🧠</span>
+        <span class="project-title">Quiz Game</span>
+        <p class="project-desc">interactive quiz · single/multi choice, fill blanks, timer, score & explanations.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">javascript</span>
+          <span class="tech-tag">css</span>
+        </div>
+        <span class="card-footer">start quiz →</span>
+      </a>
+
+      <!-- 3. Responsive Landing Page (ZENUI) -->
+      <a href="Responsive.html" class="project-card">
+        <span class="card-icon">✨</span>
+        <span class="project-title">ZENUI</span>
+        <p class="project-desc">responsive landing page · interactive navbar (scroll effect, hover, hamburger).</p>
+        <div class="tech-tags">
+          <span class="tech-tag">flex/grid</span>
+          <span class="tech-tag">mobile first</span>
+          <span class="tech-tag">sticky nav</span>
+        </div>
+        <span class="card-footer">visit landing →</span>
+      </a>
+
+      <!-- 4. To-Do List card -->
+      <a href="todolist.html" class="project-card">
+        <span class="card-icon">✅</span>
+        <span class="project-title">To-Do List</span>
+        <p class="project-desc">tasks with date/time, filter, edit, delete & localStorage persistence.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">localstorage</span>
+          <span class="tech-tag">datetime</span>
+          <span class="tech-tag">filter</span>
+        </div>
+        <span class="card-footer">manage tasks →</span>
+      </a>
+    </div>
+
+    <!-- extra separator / feature row -->
+    <div class="separator"></div>
+
+    <div class="feature-note">
+      <div class="stack-overview">
+        <span>🧮 calc · full logic</span>
+        <span>🧠 quiz · 6 questions</span>
+        <span>✨ landing · 4 sections</span>
+        <span>✅ todo · persistent</span>
+      </div>
+      <div class="launch-message">
+        ⚡ 4 pages ready — click any card
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple router that opens the correct built page.
+    // Since you have four separate HTML files (calculator, quiz, landing, todo)
+    // we simulate linking by navigating to the corresponding file.
+    // Adjust the file names/paths if they are different (e.g., calculator.html, quiz.html, landing.html, todo.html)
+    
+    function openProject(project) {
+      // Prevent default anchor behavior (#)
+      event.preventDefault();
+
+      // define filenames – change these if your files have different names.
+      const pages = {
+        calculator: 'calculator.html',   // your calculator page (the first one in your message)
+        quiz: 'quiz.html',               // quiz game page (second large block)
+        landing: 'landing.html',          // responsive landing page (third block)
+        todo: 'todo.html'                 // to-do list (fourth block)
+      };
+
+      // optional: if the files are in subfolders adjust like 'pages/calculator.html'
+      // but we assume they are in same directory as this index.
+      
+      let filename = pages[project];
+      if (filename) {
+        // For a smooth transition you could add a small delay, but direct navigation is fine.
+        window.location.href = filename;
+      } else {
+        alert('Project file not found. Please check the filenames in script.');
+      }
+      
+      return false; // prevent default
+    }
+
+    // Additional: highlight links with friendly console reminder (optional)
+    console.log('Index page loaded. Project links: calculator.html, quiz.html, landing.html, todo.html');
+
+    // Make sure all four cards work even if user middle-clicks or something; 
+    // we use onclick but also keep href values as backup with javascript:void(0)?
+    // But we already preventDefault. For right-click "open in new tab" we want the href to point to actual file.
+    // So we will set real hrefs for each card.
+    
+    // Better: set real hrefs dynamically so that right-click/open in new tab works.
+    // We can adjust the links via JS on page load.
+    window.addEventListener('load', function() {
+      // Set proper href for each link so that "open in new tab" works.
+      const calcLink = document.getElementById('calc-link');
+      const quizLink = document.getElementById('quiz-link');
+      const landingLink = document.getElementById('landing-link');
+      const todoLink = document.getElementById('todo-link');
+      
+      // assign actual filenames (same mapping)
+      calcLink.href = 'calculator.html';
+      quizLink.href = 'quiz.html';
+      landingLink.href = 'landing.html';
+      todoLink.href = 'todo.html';
+      
+      // but we also keep the onclick for same-tab navigation with optional effect.
+      // However we need to avoid double navigation: if user clicks, the onclick triggers and returns false,
+      // which cancels the href. That's fine because we manually change window location in openProject.
+      // So we need to ensure openProject doesn't conflict when user right-clicks etc. It's fine.
+      
+      // we need to redefine onclick to use the correct mapping without hardcoding inside function.
+      // overwrite onclick for each card
+      calcLink.onclick = function(e) { e.preventDefault(); window.location.href = 'calculator.html'; return false; };
+      quizLink.onclick = function(e) { e.preventDefault(); window.location.href = 'quiz.html'; return false; };
+      landingLink.onclick = function(e) { e.preventDefault(); window.location.href = 'landing.html'; return false; };
+      todoLink.onclick = function(e) { e.preventDefault(); window.location.href = 'todo.html'; return false; };
+      
+      // also openProject function kept for reference, but we can simply inline.
+      // To keep things consistent, we also update the generic openProject, but we are overriding per link.
+    });
+
+    // Fallback for any unexpected click on card via bubbling (just in case)
+    document.querySelectorAll('.project-card').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // the specific per-link onclick already handles, but we prevent default if href is just '#'
+        if (link.getAttribute('href') === '#') {
+          e.preventDefault();
+        }
+      });
+    });
+
+    // also, ensure that if javascript is disabled, the href's are valid: we set them above on load, 
+    // but initial html had "#" placeholders. We can set them directly in the HTML, but we'll update them instantly.
+    // Let's also update href directly in the elements after load to support right-click.
+  </script>
+  <!-- also make sure hrefs are set quickly for users who might right-click before the load event? -->
+  <!-- We can set them with inline fallback: but better to put correct filenames directly in HTML -->
+  <!-- Since the initial code used href="#", we fix them at load. but for very fast right-click it might miss. -->
+  <!-- So we can also embed filenames directly in HTML, but we need to avoid page reload with #. -->
+  <!-- For better UX, we will update hrefs as soon as the script runs. -->
+  <script>
+    (function setHrefsImmediately() {
+      // run immediately (before load) to set hrefs for any right-click
+      const calcLink = document.getElementById('calc-link');
+      const quizLink = document.getElementById('quiz-link');
+      const landingLink = document.getElementById('landing-link');
+      const todoLink = document.getElementById('todo-link');
+      if (calcLink) calcLink.href = 'calculator.html';
+      if (quizLink) quizLink.href = 'quiz.html';
+      if (landingLink) landingLink.href = 'landing.html';
+      if (todoLink) todoLink.href = 'todo.html';
+    })();
+  </script>
+  
+</body>
+</html>
